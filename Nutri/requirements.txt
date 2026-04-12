@@ -1,0 +1,15 @@
+# Interface (Application)
+streamlit
+pandas
+numpy
+plotly
+
+# Machine Learning & Modélisation
+scikit-learn
+xgboost
+lightgbm
+shap
+
+# Environnement de développement
+jupyter
+ipykernel
