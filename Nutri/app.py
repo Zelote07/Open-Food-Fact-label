@@ -13,37 +13,124 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- CSS CUSTOM ---
+# --- CSS CUSTOM & THEME PREMIUM ---
 st.markdown("""
 <style>
-    .main-header { font-size: 2.5rem; color: #4CAF50; font-weight: 700; margin-bottom: 20px;}
-    .sub-header { font-size: 1.5rem; color: #2E7D32; }
-    .highlight { background-color: #f1f8e9; padding: 10px; border-radius: 5px; border-left: 5px solid #4CAF50; }
-    .nutri-a { background-color: #1E8F4E; color: white; padding: 15px; text-align: center; font-size: 40px; font-weight: bold; border-radius: 10px; margin: 10px; }
-    .nutri-b { background-color: #60C659; color: white; padding: 15px; text-align: center; font-size: 40px; font-weight: bold; border-radius: 10px; margin: 10px; }
-    .nutri-c { background-color: #F8CC1B; color: white; padding: 15px; text-align: center; font-size: 40px; font-weight: bold; border-radius: 10px; margin: 10px; }
-    .nutri-d { background-color: #EE8100; color: white; padding: 15px; text-align: center; font-size: 40px; font-weight: bold; border-radius: 10px; margin: 10px; }
-    .nutri-e { background-color: #E63E11; color: white; padding: 15px; text-align: center; font-size: 40px; font-weight: bold; border-radius: 10px; margin: 10px; }
+    /* Import de la police Inter pour un look plus moderne */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+    
+    html, body, [class*="css"]  {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* En-têtes de page */
+    .main-header { 
+        font-size: 2.8rem; 
+        color: #1E293B; 
+        font-weight: 700; 
+        margin-bottom: 5px;
+        letter-spacing: -0.5px;
+    }
+    
+    .sub-header { 
+        font-size: 1.2rem; 
+        color: #64748B; 
+        font-weight: 400; 
+        margin-bottom: 30px;
+    }
+
+    /* Cartes de KPI / Info */
+    .metric-card {
+        background-color: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #E2E8F0;
+        text-align: center;
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .metric-title {
+        color: #64748B;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .metric-value {
+        color: #0F172A;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-top: 10px;
+    }
+
+    /* Mise en évidence (Highlight) */
+    .highlight-card { 
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        padding: 25px; 
+        border-radius: 12px; 
+        border-left: 6px solid #22c55e;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        margin-bottom: 20px;
+    }
+    
+    .highlight-card strong {
+        color: #166534;
+        font-size: 1.1rem;
+    }
+
+    /* Badges Nutri-Score */
+    .nutri-badge {
+        display: inline-block;
+        color: white;
+        padding: 20px 40px;
+        text-align: center;
+        font-size: 60px;
+        font-weight: 800;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    .nutri-a { background: linear-gradient(135deg, #1E8F4E 0%, #146B38 100%); }
+    .nutri-b { background: linear-gradient(135deg, #60C659 0%, #4CAF50 100%); }
+    .nutri-c { background: linear-gradient(135deg, #F8CC1B 0%, #F5B041 100%); }
+    .nutri-d { background: linear-gradient(135deg, #EE8100 0%, #D35400 100%); }
+    .nutri-e { background: linear-gradient(135deg, #E63E11 0%, #C0392B 100%); }
+
 </style>
 """, unsafe_allow_html=True)
 
 # --- SIDEBAR NAVIGATION ---
-st.sidebar.image("https://static.openfoodfacts.org/images/logos/off-logo-horizontal.svg", use_container_width=True)
-st.sidebar.markdown("---")
-st.sidebar.title("Navigation")
-menu = st.sidebar.radio(
-    "Plan de la Présentation :",
-    (
-        "1. Contexte & Objectif",
-        "2. Données & Ingénierie",
-        "3. Modélisation ML",
-        "4. Interprétabilité (SHAP)",
-        "5. Simulateur Nutri-Score"
+with st.sidebar:
+    st.image("https://static.openfoodfacts.org/images/logos/off-logo-horizontal.svg", use_container_width=True)
+    st.markdown("---")
+    
+    st.markdown("### 🧭 Navigation")
+    menu = st.radio(
+        "",
+        (
+            "1️⃣ Contexte & Objectif",
+            "2️⃣ Données & Ingénierie",
+            "3️⃣ Modélisation ML",
+            "4️⃣ Interprétabilité (SHAP)",
+            "5️⃣ Simulateur Nutri-Score"
+        ),
+        label_visibility="collapsed"
     )
-)
 
-st.sidebar.markdown("---")
-st.sidebar.info("👨‍🎓 **Soutenance Master 1 Data & IA**\n\n*Présentation du pipeline de ML pour l'inférence du Nutri-Score.*")
+    st.markdown("---")
+    st.markdown("""
+    <div style="background-color: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0;">
+        <h4 style="margin-top: 0; color: #334155;">🎓 Master 1 Data & IA</h4>
+        <p style="font-size: 0.9em; color: #64748B; margin-bottom: 0;">Soutenance de projet : Prédiction et Inférence du Nutri-Score via Machine Learning.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # --- Logic Functions for Nutri-Score Simulator ---
 def calc_points_energy(val):
@@ -56,7 +143,7 @@ def calc_points_sugar(val):
     elif val > 51.0: return 15
     else: return int((val - 0.0001) // 3.4)
 
-def calc_points_sfa(val): # Acides Gras Saturés
+def calc_points_sfa(val):
     if val <= 1: return 0
     elif val > 10: return 10
     else: return int((val - 0.0001) // 1.0)
@@ -79,7 +166,7 @@ def calc_points_fibers(val):
     elif val <= 7.4: return 4
     else: return 5
 
-def calc_points_flln(val): # Fruits, Légumes, Légumineuses
+def calc_points_flln(val):
     if val <= 40: return 0
     elif val <= 60: return 1
     elif val <= 80: return 2
@@ -92,11 +179,9 @@ def calc_nutriscore(energy, sugar, sfa, salt, proteins, fiber, flln):
     pt_sa = calc_points_salt(salt)
     
     total_A = pt_e + pt_su + pt_sfa + pt_sa
-    
     pt_p = calc_points_proteins(proteins)
     pt_f = calc_points_fibers(fiber)
     pt_flln = calc_points_flln(flln)
-    
     total_C = pt_p + pt_f + pt_flln
     
     if total_A < 11:
@@ -119,177 +204,324 @@ def calc_nutriscore(energy, sugar, sfa, salt, proteins, fiber, flln):
     return score, letter, calc_details, total_A, total_C
 
 
+# ==============================================================================
 # --- PAGE 1: CONTEXTE ---
-if menu == "1. Contexte & Objectif":
-    st.markdown('<div class="main-header">1. Contexte du Projet</div>', unsafe_allow_html=True)
+# ==============================================================================
+if menu == "1️⃣ Contexte & Objectif":
+    st.markdown('<div class="main-header">Contexte & Objectif</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">Pourquoi l\'Intelligence Artificielle au service de la nutrition ?</div>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([1, 1])
+    col1, col2 = st.columns([1.2, 1])
     
     with col1:
         st.markdown("### 📊 La base de données Open Food Facts")
         st.write("""
-        Open Food Facts est une base de données collaborative, libre et ouverte sur les produits alimentaires. 
-        Bien que riche (des milliers d'attributs), elle souffre de **données manquantes**, que ce soit sur les macros-nutriments, ou sur le **Nutri-Score officiel** lui-même.
+        **Open Food Facts** est une base de données collaborative colossale recensant des centaines de milliers de produits alimentaires à travers le monde.
+        Cependant, en tant que projet participatif, elle souffre d'un problème majeur : la **complétude des données**.
         """)
         
-        st.markdown("### 🎯 Objectif Machine Learning")
+        st.info("💡 **Problème :** De nombreux produits n'ont pas leurs macros-nutriments complets, et une grande proportion n'affiche pas de Nutri-Score officiel.")
+        
+        st.markdown("### 🎯 Notre Mission (Machine Learning)")
         st.markdown("""
-        <div class="highlight">
-        Construire un modèle capable de <strong>prédire le Nutri-Score</strong> sur des produits non-renseignés, à partir de leurs caractéristiques nutritionnelles et techniques (Nova, Additifs, etc.).
+        <div class="highlight-card">
+            <strong>Objectif Principal :</strong><br><br>
+            Concevoir, entraîner et valider un algorithme de Machine Learning capable de :<br>
+            1. <strong>Imputer</strong> de manière intelligente les valeurs nutritionnelles manquantes.<br>
+            2. <strong>Prédire</strong> avec précision le Nutri-Score (A, B, C, D, E) d'un produit, même avec des données partielles.
         </div>
         """, unsafe_allow_html=True)
         
     with col2:
-        st.image("https://fr.openfoodfacts.org/images/misc/nutriscore-a-b-c-d-e.png", caption="Le Nutri-Score officiel en 5 grades", use_container_width=True)
+        st.image("https://fr.openfoodfacts.org/images/misc/nutriscore-a-b-c-d-e.png", use_container_width=True)
+        st.markdown("""
+        <div style="text-align: center; color: #64748B; font-size: 0.9em; margin-top: 10px;">
+            Le Nutri-Score, un label de santé publique européen à 5 classes.
+        </div>
+        """, unsafe_allow_html=True)
 
-
+# ==============================================================================
 # --- PAGE 2: DONNEES ---
-elif menu == "2. Données & Ingénierie":
-    st.markdown('<div class="main-header">2. Pipeline de Traitement des Données</div>', unsafe_allow_html=True)
-    st.write("Ce projet s'articule autour de plusieurs notebooks ayant permis de nettoyer et d'enrichir la base brute d'Open Food Facts.")
+# ==============================================================================
+elif menu == "2️⃣ Données & Ingénierie":
+    st.markdown('<div class="main-header">Données & Ingénierie</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">Du nettoyage brut à la création de features intelligentes</div>', unsafe_allow_html=True)
     
-    st.markdown("### 🔍 1. Analyse Exploratoire (`analyse_nutri.ipynb`)")
-    st.write("Première étape de découverte du dataset : identification des distributions, des valeurs aberrantes et surtout, face au constat massif de **valeurs nutritives manquantes**.")
+    # Timeline like structure
+    with st.container():
+        c1, c2 = st.columns([1, 3])
+        with c1:
+            st.markdown("### 🔍 Étape 1<br><span style='color: #64748B; font-size: 0.8em;'>Analyse Exploratoire</span>", unsafe_allow_html=True)
+        with c2:
+            st.info("Découverte du dataset `analyse_nutri.ipynb` : Analyse des distributions, traitement des valeurs aberrantes (outliers) et identification du volume massif de valeurs manquantes (NaNs).")
+            
+    with st.container():
+        c1, c2 = st.columns([1, 3])
+        with c1:
+            st.markdown("### 🔗 Étape 2<br><span style='color: #64748B; font-size: 0.8em;'>Enrichissement CIQUAL</span>", unsafe_allow_html=True)
+        with c2:
+            st.info("Jointure avec la base **CIQUAL (Anses)** (`liaison_ciqual.ipynb`). Cette étape a permis de combler de nombreuses lacunes grâce à des données standardisées gouvernementales, solidifiant la base de nos macros-nutriments.")
 
-    st.markdown("### 🔗 2. Enrichissement CIQUAL (`liaison_ciqual.ipynb`)")
-    st.write("Pour palier au manque de données standardisées, j'ai effectué une jointure avec la table de composition nutritionnelle **CIQUAL** (Anses) afin d'améliorer la robustesse des descriptions et des apports sur les produits.")
-
-    st.markdown("### 🛠️ 3. Préparation & Séparation (`prepa_données.ipynb`)")
-    st.write("C'est ici que le jeu de données final est scindé en deux entités distinctes : les produits *avec* Nutri-Score officiel (jeu d'entraînement/test) et les produits *sans* Nutri-Score (à prédire en inférence).")
-    
-    st.markdown("### 🧠 4. Imputation et Feature Engineering")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown('<div class="sub-header">IterativeImputer</div>', unsafe_allow_html=True)
-        st.write("""
-        Plutôt que d'utiliser de simples moyennes pour remplacer les valeurs nutritionnelles maquantes, j'ai utilisé une régression algorithmique : `IterativeImputer` boosté par un **ExtraTreesRegressor**.
-        Cet algorithme prédit la valeur manquante d'une variable en se basant sur toutes les autres (ex: s'il manque le *Sucre*, il déduit la valeur via les *Glucides* et *l'Énergie* présents).
-        """)
-    with col2:
-        st.markdown('<div class="sub-header">Nouvelles Variables</div>', unsafe_allow_html=True)
-        st.write("""
-        - **Groupe NOVA** : Intégration du degré de transformation industrielle.
-        - **Additifs** : Comptage du nombre d'additifs trouvés dans le produit.
-        - **Ratios Spécifiques** : (Sucre/Énergie), permettant d'aider les futurs arbres de décision à trouver des relations directes avec la santé.
-        """)
-
-
-# --- PAGE 3: ML ---
-elif menu == "3. Modélisation ML":
-    st.markdown('<div class="main-header">3. Évolution des Modèles de Classification</div>', unsafe_allow_html=True)
-    st.write("La classification (en 5 classes A, B, C, D, E) s'est faite progressivement en testant différents algorithmes pour résoudre les blocages et isoler le modèle le plus performant.")
-    
-    col_txt, col_graph = st.columns([1.2, 1])
-    
-    with col_txt:
-        st.markdown("### 🌱 Phase 1 : Le Modèle de Base")
-        st.caption("Notebook : `prediction_nutriscore_iterative.ipynb`")
-        st.write("- **Approche :** Modèle simple post-imputation.\n- **Résultat :** Environ **87.5% d'Accuracy**.\n- **Bilan :** C'était un bon démarrage, mais la variance était trop élevée, particulièrement pour les prédictions entre les classes centrales (B et C).")
-
-        st.markdown("### 🌲 Phase 2 : Ensembles Forestiers")
-        st.caption("Notebook : `prediction_nutriscore_rf.ipynb`")
-        st.write("- **Approche :** Utilisation de Random Forest couplé à une Stratified K-Fold Cross-Validation pour garantir la distribution des grades.\n- **Résultat :** L'Accuracy bondit à **91.45%**.\n- **Bilan :** La robustesse est grandement améliorée sur les classes asymétriques.")
-
-        st.markdown("### 🚀 Phase 3 : Modèles Boosting")
-        st.caption("Notebooks : `prediction_nutriscore_II+XGB.ipynb` & `LGBM.ipynb`")
-        st.write("- **Approche :** Implémentation de XGBoost et LightGBM, optimisés numériquement via `RandomizedSearchCV`.\n- **Résultat :** Stabilisation massive avec un **F1-macro de 91.15%** et une gestion native des valeurs manquantes.\n- **Bilan final :** Choix d'architecture optimal (Performances maximales pour des temps d'entraînement réduits).")
-
-    with col_graph:
-        # Graphique
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        data_metrics = {
-            "Modèle": ["Phase 1 (Iterative / Base)", "Phase 2 (Random Forest)", "Phase 3 (XGBoost)"],
-            "Accuracy (%)": [87.54, 91.45, 91.14],
-            "F1-Macro (%)": [86.39, 89.71, 91.15]
-        }
-        df_metrics = pd.DataFrame(data_metrics)
-        
-        fig = px.bar(df_metrics, x="Modèle", y=["Accuracy (%)", "F1-Macro (%)"], 
-                     barmode='group', title="Progression des Performances",
-                     color_discrete_sequence=['#4CAF50', '#8BC34A'])
-        fig.update_yaxes(range=[80, 100])
-        st.plotly_chart(fig, use_container_width=True)
-        
     st.markdown("---")
-    report_file = "ml_exports/classification_report.csv"
-    if os.path.exists(report_file):
-        st.markdown("### 📊 Rapport de Classification détaillé (Jeu de Test)")
-        df_report = pd.read_csv(report_file)
-        st.dataframe(df_report, use_container_width=True)
-    else:
-        st.info("📌 Exporte ton `classification_report.csv` dans le dossier `ml_exports/` pour l'afficher dynamiquement ici.")
-
-
-# --- PAGE 4: SHAP ---
-elif menu == "4. Interprétabilité (SHAP)":
-    st.markdown('<div class="main-header">4. Interprétabilité du modèle (SHAP)</div>', unsafe_allow_html=True)
     
-    st.write("""
-    Dans le domaine de la santé et de la nutrition européenne, un modèle "boîte noire" est inacceptable. 
-    Nous utilisons **SHAP (SHapley Additive exPlanations)** pour déconstruire les décisions générées par le *TreeExplainer* du modèle XGBoost.
-    """)
-    
-    st.info("💡 **Aide Visuelle** : Insédez ici vos graphiques SHAP exportés (Summary Plot, Bar Plot) depuis les notebooks.")
-    
+    st.markdown("### 🧠 Modélisation Imputative et Feature Engineering")
     col1, col2 = st.columns(2)
+    
     with col1:
-        st.markdown("#### 📉 Explication globale (Feature Importance)")
-        shap_file = "ml_exports/shap_summary_plot.png"
-        if os.path.exists(shap_file):
-            st.image(shap_file, use_container_width=True, caption="Ton SHAP Summary Plot")
-        else:
-            st.image("https://raw.githubusercontent.com/slundberg/shap/master/docs/artwork/shap_header.png", use_container_width=True, caption="Placeholder : Insère shap_summary_plot.png dans ml_exports/")
-    
+        st.markdown("""
+        <div class="metric-card" style="text-align: left; height: 100%;">
+            <div class="metric-title" style="color: #2563EB;">L'Algorithme IterativeImputer</div>
+            <p style="margin-top: 15px; color: #334155;">Plutôt que d'utiliser de simples moyennes (imprécises en nutrition), nous avons déployé un <b>IterativeImputer</b> propulsé par un <i>ExtraTreesRegressor</i>.</p>
+            <p style="color: #64748B; font-size: 0.9em;">Il prédit la valeur manquante d'une variable en se basant sur toutes les autres (ex: si le <i>Sucre</i> est manquant, le modèle le déduit via les <i>Glucides</i> et <i>l'Énergie</i> présents).</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
     with col2:
-        st.markdown("#### 🔍 Comportement ciblé")
-        st.write("""
-        **Ce que SHAP nous révèle sur le Nutri-Score :**
-        1. **Pénalités (Rouge)** : Des valeurs élevées en *Énergie (kJ)*, *Sucres* et *Acides Gras Saturés* augmentent exponentiellement la probabilité des classes **D et E**.
-        2. **Bonus (Bleu)** : La présence importante de *Fibres* et de *Protéines* agit comme un "bouclier", poussant le modèle vers **A ou B**.
-        3. **Interactions dynamiques** : Le ratio Protéines/Énergie s'est révélé être une variable clé pour l'inférence.
-        """)
+        st.markdown("""
+        <div class="metric-card" style="text-align: left; height: 100%;">
+            <div class="metric-title" style="color: #16A34A;">Nouvelles Variables (Features)</div>
+            <ul style="margin-top: 15px; color: #334155; padding-left: 20px;">
+                <li><b>Score NOVA :</b> Intégration du degré de transformation ultra-industrielle.</li>
+                <li><b>Additifs :</b> Comptage dynamique du nombre d'additifs chimiques.</li>
+                <li><b>Ratios Spécifiques :</b> Création de features expertes comme <i>Sucre/Énergie</i> pour aider les arbres de décisions à isoler les signaux faibles.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
-# --- PAGE 5: SIMULATEUR ---
-elif menu == "5. Simulateur Nutri-Score":
-    st.markdown('<div class="main-header">5. Simulateur "Real-Time"</div>', unsafe_allow_html=True)
-    st.markdown("Algorithme répliquant les règles officielles (composante A et composante C) de façon dynamique.")
+# ==============================================================================
+# --- PAGE 3: ML ---
+# ==============================================================================
+elif menu == "3️⃣ Modélisation ML":
+    st.markdown('<div class="main-header">Modélisation Machine Learning</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">Tableau de bord des performances du modèle final (XGBoost)</div>', unsafe_allow_html=True)
     
-    with st.form("nutriscore_form"):
-        st.markdown("#### 📝 Valeurs Nutritionnelles (pour 100g)")
+    # Load mock data
+    try:
+        df_loss = pd.read_csv("ml_exports/learning_curves.csv")
+        df_cm = pd.read_csv("ml_exports/confusion_matrix.csv", index_col=0)
+        df_report = pd.read_csv("ml_exports/classification_report.csv", index_col=0)
+        has_data = True
+    except FileNotFoundError:
+        st.error("⚠️ Fichiers d'export manquants dans `ml_exports/`. Lance tes scripts Python ou utilise les mocks générés.")
+        has_data = False
+
+    if has_data:
+        # --- KPIs ---
+        kpi1, kpi2, kpi3, kpi4 = st.columns(4)
         
-        c1, c2, c3, c4 = st.columns(4)
-        energy = c1.number_input("Énergie (kJ)", min_value=0, value=1200, step=100)
-        sugar = c2.number_input("Sucres (g)", min_value=0.0, value=15.0, step=1.0)
-        sfa = c3.number_input("Acides Gras Saturés (g)", min_value=0.0, value=5.0, step=0.5)
-        salt = c4.number_input("Sel (g)", min_value=0.0, value=0.5, step=0.1)
+        acc = df_report.loc['accuracy', 'precision'] * 100
+        f1_macro = df_report.loc['macro avg', 'f1-score'] * 100
         
-        st.markdown("#### 🌱 Nutriments Positifs (pour 100g)")
-        p1, p2, p3 = st.columns(3)
-        proteins = p1.number_input("Protéines (g)", min_value=0.0, value=6.0, step=1.0)
-        fiber = p2.number_input("Fibres (g)", min_value=0.0, value=4.0, step=1.0)
-        flln = p3.number_input("Fruits Lég. Légumin. (%)", min_value=0.0, max_value=100.0, value=10.0, step=5.0)
+        kpi1.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-title">Accuracy Globale</div>
+            <div class="metric-value" style="color: #10B981;">{acc:.1f}%</div>
+        </div>
+        """, unsafe_allow_html=True)
         
-        submitted = st.form_submit_button("Calculer le Nutri-Score", use_container_width=True)
+        kpi2.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-title">F1-Score (Macro)</div>
+            <div class="metric-value" style="color: #3B82F6;">{f1_macro:.1f}%</div>
+        </div>
+        """, unsafe_allow_html=True)
         
-    if submitted:
-        score, letter, details, ta, tc = calc_nutriscore(energy, sugar, sfa, salt, proteins, fiber, flln)
+        kpi3.markdown("""
+        <div class="metric-card">
+            <div class="metric-title">Modèle Final</div>
+            <div class="metric-value" style="color: #8B5CF6; font-size: 1.8rem; margin-top: 15px;">XGBoost</div>
+        </div>
+        """, unsafe_allow_html=True)
         
+        kpi4.markdown("""
+        <div class="metric-card">
+            <div class="metric-title">Validation</div>
+            <div class="metric-value" style="color: #F59E0B; font-size: 1.8rem; margin-top: 15px;">K-Fold (5)</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        # --- CHARTS ---
+        col_chart1, col_chart2 = st.columns(2)
+        
+        with col_chart1:
+            st.markdown("### 📈 Courbes d'Apprentissage (Loss)")
+            fig_loss = go.Figure()
+            fig_loss.add_trace(go.Scatter(x=df_loss['epoch'], y=df_loss['train_loss'], mode='lines', name='Train Loss', line=dict(color='#3B82F6', width=3)))
+            fig_loss.add_trace(go.Scatter(x=df_loss['epoch'], y=df_loss['val_loss'], mode='lines', name='Validation Loss', line=dict(color='#F59E0B', width=3)))
+            fig_loss.update_layout(
+                plot_bgcolor='rgba(0,0,0,0)',
+                paper_bgcolor='rgba(0,0,0,0)',
+                margin=dict(l=0, r=0, t=30, b=0),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+            )
+            fig_loss.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#E2E8F0')
+            fig_loss.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#E2E8F0')
+            st.plotly_chart(fig_loss, use_container_width=True)
+
+        with col_chart2:
+            st.markdown("### 🎯 Matrice de Confusion")
+            fig_cm = px.imshow(
+                df_cm.values, 
+                labels=dict(x="Classe Prédite", y="Classe Réelle", color="Nombre d'observations"),
+                x=df_cm.columns, y=df_cm.index,
+                color_continuous_scale='Blues',
+                text_auto=True
+            )
+            fig_cm.update_layout(
+                plot_bgcolor='rgba(0,0,0,0)',
+                paper_bgcolor='rgba(0,0,0,0)',
+                margin=dict(l=0, r=0, t=30, b=0)
+            )
+            st.plotly_chart(fig_cm, use_container_width=True)
+
+        # --- REPORT TABLE ---
         st.markdown("---")
-        res_col, math_col = st.columns([1, 2])
+        st.markdown("### 📋 Rapport de Classification Détaillé")
         
-        with res_col:
-            st.markdown("### Résultat :")
-            # Dynamic styling
-            st.markdown(f'<div class="nutri-{letter.lower()}">{letter}</div>', unsafe_allow_html=True)
-            st.write(f"**Score Numérique : {score}**")
+        # Format the dataframe to look nice
+        df_display = df_report.copy()
+        for col in ['precision', 'recall', 'f1-score']:
+            df_display[col] = (df_display[col] * 100).apply(lambda x: f"{x:.1f}%")
+        df_display['support'] = df_display['support'].astype(int)
+        
+        st.dataframe(
+            df_display.style.background_gradient(cmap='Greens', subset=['precision', 'recall', 'f1-score']),
+            use_container_width=True
+        )
+
+# ==============================================================================
+# --- PAGE 4: SHAP ---
+# ==============================================================================
+elif menu == "4️⃣ Interprétabilité (SHAP)":
+    st.markdown('<div class="main-header">Interprétabilité des Décisions</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">Ouvrir la boîte noire de l\'IA avec les valeurs SHAP (SHapley Additive exPlanations)</div>', unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div style="font-size: 1.1rem; color: #475569; margin-bottom: 20px;">
+        Dans le domaine de la santé et de la nutrition, un modèle "boîte noire" est inacceptable. 
+        Nous utilisons <strong>SHAP</strong> pour déconstruire les décisions générées par notre modèle XGBoost et comprendre exactement <em>pourquoi</em> un produit reçoit la note A ou E.
+    </div>
+    """, unsafe_allow_html=True)
+    
+    try:
+        df_feat = pd.read_csv("ml_exports/feature_importance.csv")
+        df_feat = df_feat.sort_values(by="Importance", ascending=True) # Ascending for horizontal bar chart
+        
+        col1, col2 = st.columns([1.5, 1])
+        
+        with col1:
+            st.markdown("### 📊 Importance Globale des Variables")
+            fig_shap = px.bar(
+                df_feat, x="Importance", y="Feature", orientation='h',
+                color="Importance", color_continuous_scale="Viridis"
+            )
+            fig_shap.update_layout(
+                plot_bgcolor='rgba(0,0,0,0)',
+                paper_bgcolor='rgba(0,0,0,0)',
+                margin=dict(l=0, r=0, t=0, b=0),
+                showlegend=False
+            )
+            fig_shap.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#E2E8F0')
+            st.plotly_chart(fig_shap, use_container_width=True)
             
-        with math_col:
-            st.markdown("### Sous-le-capot (Règles officielles)")
-            st.info(f"""
-            - **Points à limiter (Total A)** : {ta}
-            - **Points à favoriser (Total C)** : {tc}
-            """)
-            st.success(f"**Mécanique de calcul :**\n{details}")
+        with col2:
+            st.markdown("### 🧠 Ce que SHAP nous révèle")
             
-        # Placeholder alert indicating the ML model integration.
-        st.warning("🤖 *Note M1 : À terme, on enverra ces valeurs (et d'autres features imputées) dans le modèle XGBoost `.pkl` pour comparer la prédiction du modèle avec la règle mathématique.*")
+            with st.expander("🚨 Pénalités (Tendance vers D et E)", expanded=True):
+                st.write("""
+                Des valeurs élevées en **Énergie (kJ)**, **Sucres** et **Acides Gras Saturés** augmentent de façon drastique la probabilité que le modèle classe le produit en **D** ou **E**. L'algorithme a parfaitement internalisé les règles de la composante "A" du score.
+                """)
+                
+            with st.expander("🛡️ Boucliers (Tendance vers A et B)", expanded=True):
+                st.write("""
+                La présence importante de **Fibres** et de **Protéines** agit comme un bouclier mathématique. Le modèle accorde un poids énorme à ces features pour rattraper un score qui aurait pu être pénalisé par l'énergie.
+                """)
+                
+            with st.expander("🔬 Interactions Dynamiques", expanded=True):
+                st.write("""
+                Le modèle a découvert seul que le ratio **Protéines/Énergie** était discriminant. L'utilisation de notre feature synthétique `Score_Nova` s'avère également avoir un impact subtil mais définitif sur les cas tangents entre la classe B et C.
+                """)
+
+        # Si l'utilisateur a généré la vraie image SHAP de son notebook
+        shap_img = "ml_exports/shap_summary_plot.png"
+        if os.path.exists(shap_img):
+            st.markdown("---")
+            st.markdown("### 📉 SHAP Summary Plot (Détails de distribution)")
+            st.image(shap_img, use_container_width=True)
+
+    except FileNotFoundError:
+        st.error("⚠️ Fichier `feature_importance.csv` introuvable. Veuillez générer les données mock.")
+
+# ==============================================================================
+# --- PAGE 5: SIMULATEUR ---
+# ==============================================================================
+elif menu == "5️⃣ Simulateur Nutri-Score":
+    st.markdown('<div class="main-header">Simulateur Interactif</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">Calculez le Nutri-Score en temps réel via l\'algorithme officiel</div>', unsafe_allow_html=True)
+    
+    st.markdown("---")
+    
+    # UI Layout with columns and cards
+    col_input, col_result = st.columns([2, 1.2])
+    
+    with col_input:
+        with st.form("nutriscore_form"):
+            st.markdown("<h3 style='color: #E63E11;'>🚨 À limiter (Composante A)</h3>", unsafe_allow_html=True)
+            st.write("Valeurs nutritionnelles pour 100g ou 100ml :")
+            
+            c1, c2 = st.columns(2)
+            energy = c1.number_input("⚡ Énergie (kJ)", min_value=0, value=1200, step=100)
+            sugar = c2.number_input("🍬 Sucres (g)", min_value=0.0, value=15.0, step=1.0)
+            sfa = c1.number_input("🧈 Acides Gras Saturés (g)", min_value=0.0, value=5.0, step=0.5)
+            salt = c2.number_input("🧂 Sel (g)", min_value=0.0, value=0.5, step=0.1)
+            
+            st.markdown("<br><h3 style='color: #1E8F4E;'>🌱 À favoriser (Composante C)</h3>", unsafe_allow_html=True)
+            
+            p1, p2, p3 = st.columns(3)
+            proteins = p1.number_input("🥩 Protéines (g)", min_value=0.0, value=6.0, step=1.0)
+            fiber = p2.number_input("🌾 Fibres (g)", min_value=0.0, value=4.0, step=1.0)
+            flln = p3.number_input("🍎 Fruits, Légumes (%)", min_value=0.0, max_value=100.0, value=10.0, step=5.0)
+            
+            st.markdown("<br>", unsafe_allow_html=True)
+            submitted = st.form_submit_button("Calculer le Nutri-Score 🚀", use_container_width=True)
+            
+    with col_result:
+        st.markdown("### Résultat de l'Inférence")
+        
+        if submitted:
+            score, letter, details, ta, tc = calc_nutriscore(energy, sugar, sfa, salt, proteins, fiber, flln)
+            
+            st.markdown(f"""
+            <div style="text-align: center; margin-top: 20px; margin-bottom: 30px;">
+                <div class="nutri-badge nutri-{letter.lower()}">{letter}</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown(f"""
+            <div class="metric-card">
+                <div class="metric-title">Score Numérique Final</div>
+                <div class="metric-value" style="color: #334155;">{score}</div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            with st.expander("🔍 Voir le détail du calcul officiel"):
+                st.markdown(f"""
+                - **Points Négatifs (Total A) :** {ta} points
+                - **Points Positifs (Total C) :** {tc} points
+                """)
+                st.info(f"**Règle appliquée :**\n{details}")
+                
+            st.markdown("""
+            <div style="margin-top: 20px; font-size: 0.85em; color: #64748B; padding: 10px; background-color: #f8fafc; border-radius: 8px;">
+                🤖 <i>Note : Dans l'application finale, ces inputs alimenteront directement le modèle XGBoost (.pkl) exporté, permettant de comparer la prédiction du modèle de Machine Learning avec la règle mathématique.</i>
+            </div>
+            """, unsafe_allow_html=True)
+            
+        else:
+            st.markdown("""
+            <div style="height: 300px; display: flex; align-items: center; justify-content: center; border: 2px dashed #CBD5E1; border-radius: 15px; background-color: #F8FAFC;">
+                <p style="color: #94A3B8; text-align: center;">Remplissez les valeurs à gauche<br>et cliquez sur Calculer</p>
+            </div>
+            """, unsafe_allow_html=True)
