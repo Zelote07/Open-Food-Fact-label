@@ -46,18 +46,11 @@ Open-Food-Fact-label/
 │   ├── prediction_ecoscore_rf.ipynb    #    Modèle — Random Forest + TF-IDF
 │   └── download_sample.py             #    Téléchargement d'échantillons via API
 │
-├── LabelWeb/                           # 🎨 Dashboard de soutenance (unifié)
-│   ├── index.html                      #    Interface principale
-│   ├── style.css                       #    Styles
-│   ├── script.js                       #    Logique & graphiques Plotly
-│   └── data.js                         #    Données des modèles (métriques)
-│
-└── NutriWeb/                           # 🎨 Dashboard Nutri-Score (legacy)
-    ├── index.html
-    ├── style.css
-    ├── script.js
-    ├── data.js
-    └── build_data.py                   #    Script de génération des données
+└── LabelWeb/                           # 🎨 Dashboard de soutenance (unifié)
+    ├── index.html                      #    Interface principale
+    ├── style.css                       #    Styles
+    ├── script.js                       #    Logique & graphiques Plotly
+    └── data.js                         #    Données des modèles (métriques)
 ```
 
 ---
