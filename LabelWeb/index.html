@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soutenance - Intelligence Artificielle & Alimentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="layout">
+        <!-- Minimal Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-top">
+                <div class="brand">
+                    <h2>FOOD<br>ML_</h2>
+                    <span class="version">v3.0</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li class="nav-section-title">NUTRI-SCORE</li>
+                <li><button class="nav-btn active" data-target="nutri-contexte">I. CONTEXTE</button></li>
+                <li><button class="nav-btn" data-target="nutri-collecte">II. COLLECTE</button></li>
+                <li><button class="nav-btn" data-target="nutri-donnees">III. INGÉNIERIE</button></li>
+                <li><button class="nav-btn" data-target="nutri-ml">IV. ÉVALUATION</button></li>
+                <li><button class="nav-btn" data-target="nutri-shap">V. INTERPRÉTATION</button></li>
+                <li><button class="nav-btn" data-target="nutri-simulateur">VI. SIMULATEUR</button></li>
+                <li><button class="nav-btn" data-target="nutri-annexe">VII. ANNEXE</button></li>
+
+                <li class="nav-section-title mt-20 eco-text">ÉCO-SCORE</li>
+                <li><button class="nav-btn" data-target="eco-contexte">VIII. CONTEXTE</button></li>
+                <li><button class="nav-btn" data-target="eco-collecte">IX. COLLECTE</button></li>
+                <li><button class="nav-btn" data-target="eco-donnees">X. INGÉNIERIE (NLP)</button></li>
+                <li><button class="nav-btn" data-target="eco-ml">XI. ÉVALUATION</button></li>
+                <li><button class="nav-btn" data-target="eco-shap">XII. INTERPRÉTATION</button></li>
+                <li><button class="nav-btn" data-target="eco-simulateur">XIII. SIMULATEUR</button></li>
+                <li><button class="nav-btn" data-target="eco-annexe">XIV. ANNEXE</button></li>
+            </ul>
+            
+            <div class="sidebar-bottom">
+                <button id="theme-toggle" class="theme-btn">MODE SOMBRE</button>
+                <div class="credits">
+                    <p>MASTER 1 DATA & IA</p>
+                    <p class="muted">Soutenance de Projet</p>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            
+            <!-- ========================================== -->
+            <!-- PARTIE NUTRI-SCORE                         -->
+            <!-- ========================================== -->
+
+            <section id="nutri-contexte" class="page-section active">
+                <div class="section-header">
+                    <span class="section-num">01</span>
+                    <h1 class="main-title">LA MISSION NUTRI-SCORE</h1>
+                    <p class="lead">L'Intelligence Artificielle au service de la santé publique.</p>
+                </div>
+                <div class="editorial-grid">
+                    <div class="col-main">
+                        <h3 class="subtitle">LE PROBLÈME : LA DONNÉE MANQUANTE</h3>
+                        <p class="paragraph">
+                            Open Food Facts est une base de données collaborative massive, mais imparfaite. 
+                            Une part critique des produits présente des valeurs nutritionnelles incomplètes, 
+                            empêchant le calcul du Nutri-Score officiel.
+                        </p>
+                        <div class="accent-box mt-30">
+                            <h3 class="subtitle">OBJECTIF TECHNIQUE</h3>
+                            <ul class="clean-list">
+                                <li><strong>1. Imputation</strong> : Reconstruire les données manquantes via apprentissage multivarié.</li>
+                                <li><strong>2. Inférence</strong> : Prédire le Nutri-Score en s'affranchissant des règles expertes strictes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-side flex-center">
+                        <div class="graphic-placeholder">
+                            <h2 class="huge-letter">A-E</h2>
+                            <p class="mono-text">CLASSIFICATION<br>MULTICLASSE</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="nutri-collecte" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">02</span>
+                    <h1 class="main-title">COLLECTE & TRAITEMENT</h1>
+                    <p class="lead">Gestion du Big Data et filtrage intelligent des données brutes.</p>
+                </div>
+                <div class="editorial-grid">
+                    <div class="col-main">
+                        <h3 class="subtitle">LE DÉFI BIG DATA : 12 GO DE DONNÉES</h3>
+                        <p class="paragraph mb-20">
+                            La base brute Open Food Facts représente un fichier CSV de près de 12 Go. L'utilisation classique de la librairie <em>Pandas</em> provoquait un dépassement de la mémoire vive (RAM crash).
+                        </p>
+                        <div class="accent-box mt-30">
+                            <h3 class="subtitle">TRAITEMENT PAR LOTS (POLARS)</h3>
+                            <p class="paragraph">
+                                Pour surmonter ce défi technique, nous avons développé un pipeline de lecture itérative via la librairie haute performance <strong>Polars</strong>.
+                            </p>
+                            <ul class="clean-list mt-20">
+                                <li><strong>Base d'Entraînement</strong> : Produits avec un Nutri-Score officiel.</li>
+                                <li><strong>Base d'Inférence</strong> : Produits sans Nutri-Score, avec au moins 15 variables.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-side flex-center">
+                        <div class="graphic-placeholder">
+                            <h2 class="huge-letter">12G</h2>
+                            <p class="mono-text">BATCH PROCESSING<br>VIA POLARS</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="nutri-donnees" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">03</span>
+                    <h1 class="main-title">INGÉNIERIE</h1>
+                    <p class="lead">Le traitement de l'information conditionne la performance du modèle.</p>
+                </div>
+                <div class="editorial-grid">
+                    <div class="col-half">
+                        <h3 class="subtitle">STRATÉGIE D'IMPUTATION</h3>
+                        <div class="comparison-block">
+                            <div class="comp-item error-state">
+                                <h4>NAÏVE (SimpleImputer)</h4>
+                                <p>Le remplacement par la médiane détruit la variance et ignore les corrélations biologiques fondamentales.</p>
+                            </div>
+                            <div class="comp-item success-state">
+                                <h4>AVANCÉE (IterativeImputer)</h4>
+                                <p>Utilisation d'un <em>ExtraTreesRegressor</em> itératif. La prédiction s'appuie sur le contexte global du produit.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-half">
+                        <h3 class="subtitle">FEATURE ENGINEERING</h3>
+                        <p class="paragraph mb-20">Création de descripteurs sémantiques pour aider la convergence.</p>
+                        <div class="list-block">
+                            <div class="list-item">
+                                <span class="mono-tag">FEAT_01</span>
+                                <div><strong>Indice NOVA</strong><p>Intégration du niveau de transformation.</p></div>
+                            </div>
+                            <div class="list-item">
+                                <span class="mono-tag">FEAT_02</span>
+                                <div><strong>Densité d'Additifs</strong><p>Comptage dynamique des additifs.</p></div>
+                            </div>
+                            <div class="list-item">
+                                <span class="mono-tag">FEAT_03</span>
+                                <div><strong>Ratios Macros</strong><p>Ex: Sucre/Énergie. Amplifie les signaux.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="nutri-ml" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">04</span>
+                    <h1 class="main-title">ÉVALUATION (ML)</h1>
+                    <p class="lead">Sélection d'architecture et mesure de performance XGBoost.</p>
+                </div>
+                <div class="kpi-banner mt-30" id="nutri-kpi-container">
+                    <!-- JS Injected -->
+                </div>
+                <div class="mt-30">
+                    <div class="chart-wrapper">
+                        <h4 class="mono-title">DYNAMIQUE D'APPRENTISSAGE</h4>
+                        <div id="nutri-learning-curves-chart" class="plot-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="nutri-shap" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">05</span>
+                    <h1 class="main-title">INTERPRÉTATION</h1>
+                    <p class="lead">Analyse des valeurs SHAP (SHapley Additive exPlanations).</p>
+                </div>
+                <div class="editorial-grid mt-30">
+                    <div class="col-main">
+                        <div class="chart-wrapper">
+                            <h4 class="mono-title">IMPORTANCE DES VARIABLES</h4>
+                            <div id="nutri-shap-bar-chart" class="plot-container-large" style="height:400px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-side">
+                        <h3 class="subtitle">MÉCANIQUES DE DÉCISION</h3>
+                        <p class="paragraph mb-20">Le modèle n'est plus une boîte noire.</p>
+                        <div class="insight-block">
+                            <h5>FACTEURS DÉGRADANTS</h5>
+                            <p>L'Énergie (kJ) et les Acides Gras Saturés agissent comme vecteurs principaux vers les classes D et E.</p>
+                        </div>
+                        <div class="insight-block">
+                            <h5>FACTEURS COMPENSATOIRES</h5>
+                            <p>Les Fibres et les Protéines génèrent une valeur SHAP négative (poussant vers A et B).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="nutri-simulateur" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">06</span>
+                    <h1 class="main-title">SIMULATEUR NUTRI-SCORE</h1>
+                    <p class="lead">Simulation temps réel de la règle mathématique stricte.</p>
+                </div>
+                <div class="editorial-grid mt-30">
+                    <div class="col-main">
+                        <div class="form-panel">
+                            <h3 class="subtitle mb-20">VECTEUR D'ENTRÉE (POUR 100g/ml)</h3>
+                            <div class="input-category">
+                                <h4>COMPOSANTE NÉGATIVE</h4>
+                                <div class="grid-2">
+                                    <div class="input-item"><label>Énergie (kJ)</label><input type="number" id="inp-energy" value="1200" step="100"></div>
+                                    <div class="input-item"><label>Sucres (g)</label><input type="number" id="inp-sugar" value="15" step="1"></div>
+                                    <div class="input-item"><label>Graisses Sat. (g)</label><input type="number" id="inp-sfa" value="5" step="0.5"></div>
+                                    <div class="input-item"><label>Sel (g)</label><input type="number" id="inp-salt" value="0.5" step="0.1"></div>
+                                </div>
+                            </div>
+                            <div class="input-category mt-30">
+                                <h4>COMPOSANTE POSITIVE</h4>
+                                <div class="grid-3">
+                                    <div class="input-item"><label>Protéines (g)</label><input type="number" id="inp-proteins" value="6" step="1"></div>
+                                    <div class="input-item"><label>Fibres (g)</label><input type="number" id="inp-fibers" value="4" step="1"></div>
+                                    <div class="input-item"><label>Fruits/Lég. (%)</label><input type="number" id="inp-flln" value="10" step="5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-side">
+                        <div class="result-panel">
+                            <h4 class="mono-title">PRÉDICTION (RÈGLES)</h4>
+                            <div class="badge-display">
+                                <div id="nutri-badge" class="badge">C</div>
+                            </div>
+                            <div class="score-data">
+                                <div class="data-row"><span class="label">SCORE CONTINU</span><span class="value" id="nutri-score-val">2</span></div>
+                                <div class="data-row trace"><span class="label">TRACE</span><span class="value micro" id="nutri-details">-</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="nutri-annexe" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">07</span>
+                    <h1 class="main-title">ANNEXE NUTRI-SCORE</h1>
+                    <p class="lead">Vue d'ensemble de la chaîne de traitement.</p>
+                </div>
+                <div class="pipeline-container mt-30">
+                    <div class="pipeline-step"><div class="step-num">01</div><div class="step-content"><h4 class="mono-title">EXTRACTION & BATCHING</h4><p>Lecture du fichier via Polars.</p></div></div>
+                    <div class="pipeline-step"><div class="step-num">02</div><div class="step-content"><h4 class="mono-title">IMPUTATION</h4><p>IterativeImputer pour reconstituer les macros.</p></div></div>
+                    <div class="pipeline-step"><div class="step-num">03</div><div class="step-content"><h4 class="mono-title">TRAINING XGBOOST</h4><p>Modélisation et régularisation.</p></div></div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- PARTIE ECO-SCORE                           -->
+            <!-- ========================================== -->
+
+            <section id="eco-contexte" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">08</span>
+                    <h1 class="main-title eco-text">LA MISSION ÉCO-SCORE</h1>
+                    <p class="lead">L'Intelligence Artificielle au service de la transparence environnementale.</p>
+                </div>
+                <div class="editorial-grid">
+                    <div class="col-main">
+                        <h3 class="subtitle eco-border">LE PROBLÈME : LA COMPLEXITÉ DU CYCLE DE VIE</h3>
+                        <p class="paragraph">
+                            Contrairement au Nutri-Score basé sur de simples macros, l'Éco-Score requiert une Analyse du Cycle de Vie (ACV) complexe, incluant l'agriculture, l'emballage et le transport. 
+                            La majorité des produits n'ont pas ces informations explicitement chiffrées.
+                        </p>
+                        <div class="accent-box mt-30 eco-accent">
+                            <h3 class="subtitle">OBJECTIF TECHNIQUE</h3>
+                            <ul class="clean-list">
+                                <li><strong>1. NLP (Text Mining)</strong> : Extraire le sens écologique directement de la liste d'ingrédients et de la catégorie.</li>
+                                <li><strong>2. Inférence</strong> : Prédire l'Éco-Score à l'aide d'un Random Forest capable de lier des mots ("bio", "plastique") à une classe (A-E).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-side flex-center">
+                        <div class="graphic-placeholder eco-bg">
+                            <h2 class="huge-letter">NLP</h2>
+                            <p class="mono-text">TEXT MINING &<br>RANDOM FOREST</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="eco-collecte" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">09</span>
+                    <h1 class="main-title eco-text">COLLECTE NLP</h1>
+                    <p class="lead">Récupération des métadonnées sémantiques (Polars).</p>
+                </div>
+                <div class="editorial-grid">
+                    <div class="col-main">
+                        <h3 class="subtitle eco-border">NOUVEAU PARADIGME : LE TEXTE</h3>
+                        <p class="paragraph mb-20">
+                            Notre script Polars a été adapté pour ne plus se concentrer uniquement sur les chiffres, mais sur les textes descriptifs qui encodent l'impact carbone.
+                        </p>
+                        <div class="accent-box mt-30 eco-accent">
+                            <h3 class="subtitle">COLONNES EXTRAITES</h3>
+                            <ul class="clean-list mt-20">
+                                <li><strong>categories</strong> : Donne le PEF (Product Environmental Footprint) de base.</li>
+                                <li><strong>ingredients_text</strong> : Révèle la présence d'huile de palme, de viande, etc.</li>
+                                <li><strong>labels & packaging</strong> : Permet d'identifier les labels "AB Bio" et les emballages plastiques.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-side flex-center">
+                        <div class="graphic-placeholder eco-bg">
+                            <h2 class="huge-letter">TXT</h2>
+                            <p class="mono-text">EXTRACTION DE<br>CHAÎNES</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="eco-donnees" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">10</span>
+                    <h1 class="main-title eco-text">INGÉNIERIE NLP</h1>
+                    <p class="lead">Transformation du langage en matrices mathématiques.</p>
+                </div>
+                <div class="editorial-grid">
+                    <div class="col-half">
+                        <h3 class="subtitle eco-border">LA MATRICE TF-IDF</h3>
+                        <p class="paragraph">
+                            Un algorithme de Machine Learning ne comprend pas le mot "Pomme". Nous utilisons <strong>TfidfVectorizer</strong> (Term Frequency - Inverse Document Frequency).
+                        </p>
+                        <p class="paragraph mt-10">
+                            Cette technique compte les mots et donne plus de poids aux mots rares et discriminants (ex: "palme") par rapport aux mots très communs (ex: "eau", "sel").
+                        </p>
+                    </div>
+                    <div class="col-half">
+                        <h3 class="subtitle eco-border">GESTION DE LA MÉMOIRE</h3>
+                        <div class="comparison-block">
+                            <div class="comp-item error-state">
+                                <h4>VOCABULAIRE COMPLET</h4>
+                                <p>Générer une colonne pour chaque mot existant dans la base fait exploser la RAM (> 100 000 colonnes).</p>
+                            </div>
+                            <div class="comp-item success-state" style="background-color: rgba(3, 129, 65, 0.1); border-color: var(--eco-color);">
+                                <h4>VOCABULAIRE TRONQUÉ</h4>
+                                <p>Limitation aux 200 mots les plus fréquents pour <code>ingredients_text</code> et 100 pour <code>categories</code>. L'essentiel du signal est conservé.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="eco-ml" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">11</span>
+                    <h1 class="main-title eco-text">ÉVALUATION (NLP)</h1>
+                    <p class="lead">Performances du Random Forest Classifier.</p>
+                </div>
+                <div class="kpi-banner mt-30 eco-theme" id="eco-kpi-container">
+                    <!-- JS Injected -->
+                </div>
+                <div class="mt-30">
+                    <div class="chart-wrapper">
+                        <h4 class="mono-title">DYNAMIQUE D'APPRENTISSAGE</h4>
+                        <div id="eco-learning-curves-chart" class="plot-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="eco-shap" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">12</span>
+                    <h1 class="main-title eco-text">INTERPRÉTATION (SHAP)</h1>
+                    <p class="lead">Quels mots influencent l'Éco-Score ?</p>
+                </div>
+                <div class="editorial-grid mt-30">
+                    <div class="col-main">
+                        <div class="chart-wrapper">
+                            <h4 class="mono-title">IMPORTANCE DES MOTS (TF-IDF)</h4>
+                            <div id="eco-shap-bar-chart" class="plot-container-large" style="height:400px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-side">
+                        <h3 class="subtitle eco-border">ANALYSE SÉMANTIQUE</h3>
+                        <p class="paragraph mb-20">La magie du NLP : le modèle a compris de lui-même les règles écologiques, sans qu'on les lui programme !</p>
+                        <div class="insight-block eco-accent">
+                            <h5>MOTS CLÉS POSITIFS (Bonus)</h5>
+                            <p>Les termes "bio", "agriculture biologique", "végétal" ou "local" orientent fortement la prédiction vers la classe A.</p>
+                        </div>
+                        <div class="insight-block eco-accent">
+                            <h5>MOTS CLÉS NÉGATIFS (Malus)</h5>
+                            <p>Les termes "palme", "bœuf", ou les catégories très transformées chutent la prédiction vers D ou E.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="eco-simulateur" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">13</span>
+                    <h1 class="main-title eco-text">SIMULATEUR ÉCO-SCORE</h1>
+                    <p class="lead">Testez le moteur d'impact environnemental.</p>
+                </div>
+                <div class="editorial-grid mt-30">
+                    <div class="col-main">
+                        <div class="form-panel eco-panel">
+                            <h3 class="subtitle mb-20 eco-border">ANALYSE DE CYCLE DE VIE SIMPLIFIÉE</h3>
+                            <div class="input-category">
+                                <h4>BASE ENVIRONNEMENTALE</h4>
+                                <div class="grid-2">
+                                    <div class="input-item">
+                                        <label>Catégorie (PEF)</label>
+                                        <select id="inp-pef">
+                                            <option value="90">Légumes frais (90/100)</option>
+                                            <option value="70">Pâtes (70/100)</option>
+                                            <option value="40" selected>Plat Préparé (40/100)</option>
+                                            <option value="20">Viande Bovine (20/100)</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-item">
+                                        <label>Origine des ingrédients</label>
+                                        <select id="inp-origin">
+                                            <option value="15">France (+15 pts)</option>
+                                            <option value="10">Europe (+10 pts)</option>
+                                            <option value="0" selected>Monde (0 pt)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-category mt-30">
+                                <h4>BONUS / MALUS</h4>
+                                <div class="grid-2">
+                                    <div class="input-item">
+                                        <label>Labels Officiels</label>
+                                        <select id="inp-bio">
+                                            <option value="0" selected>Aucun</option>
+                                            <option value="15">AB Bio (+15 pts)</option>
+                                            <option value="10">Label Rouge (+10 pts)</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-item">
+                                        <label>Emballage</label>
+                                        <select id="inp-pack">
+                                            <option value="0" selected>Carton / Verre (0 pt)</option>
+                                            <option value="-10">Plastique recyclable (-10 pts)</option>
+                                            <option value="-15">Plastique non-recyclable (-15 pts)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-side">
+                        <div class="result-panel" style="border-top: 5px solid var(--eco-color);">
+                            <h4 class="mono-title" style="color: var(--eco-color);">PRÉDICTION (ÉCO)</h4>
+                            <div class="badge-display">
+                                <div id="eco-badge" class="badge">C</div>
+                            </div>
+                            <div class="score-data">
+                                <div class="data-row"><span class="label">SCORE / 100</span><span class="value" id="eco-score-val">40</span></div>
+                                <div class="data-row trace"><span class="label">DÉTAIL</span><span class="value micro" id="eco-details" style="color: var(--eco-color);">-</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="eco-annexe" class="page-section">
+                <div class="section-header">
+                    <span class="section-num">14</span>
+                    <h1 class="main-title eco-text">ANNEXE ÉCO-SCORE</h1>
+                    <p class="lead">Les limites du modèle Textuel.</p>
+                </div>
+                <div class="editorial-grid mt-30">
+                    <div class="col-main">
+                        <div class="insight-block" style="border-left-color: var(--accent);">
+                            <h3 class="subtitle">🔴 LIMITES DU TF-IDF</h3>
+                            <p class="paragraph">
+                                Le TF-IDF ne comprend pas la "négation" ou la "proportion". Si les ingrédients indiquent "Sans huile de palme", le modèle verra le mot "palme" et risquera d'appliquer un malus écologique, ne comprenant pas le contexte.
+                                De plus, l'ordre des mots (quantité) est ignoré.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-side">
+                        <div class="insight-block eco-accent">
+                            <h3 class="subtitle">🟢 PERSPECTIVES (LLM)</h3>
+                            <p class="paragraph">
+                                L'utilisation de modèles d'attention comme BERT ou Mistral permettrait de comprendre le vrai contexte sémantique.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Import Data and Scripts -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
